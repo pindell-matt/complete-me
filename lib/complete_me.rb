@@ -21,4 +21,8 @@ class CompleteMe
       insert(word, count, current.children.fetch(word[count - 1]))
     end
   end
+
+  def count
+    # returns # of nodes w/ is_word == true
+  end
 end

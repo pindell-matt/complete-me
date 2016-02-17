@@ -43,8 +43,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_two_words_with_same_starting_char
-    skip
-    # binding.pry
+    # skip
     @trie.insert("hi")
     @trie.insert("ho")
     submitted = @trie.root.children.values.first.children.count
@@ -54,7 +53,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_larger_words_with_same_starting_char
-    # skip
+    skip
     @trie.insert("house")
     @trie.insert("hope")
     submitted = @trie.root.children.values.first.children.count
