@@ -1,17 +1,17 @@
 require 'pry'
 
 class Node
-  attr_accessor :value
+  attr_accessor :word
   attr_reader   :children
 
-  def initialize(value = nil)
-    @value = value
-    @children = ('a'..'z').to_a
+  def initialize(word = false)
+    @word     = word
+    @children = nil
   end
 
 end
 
 if __FILE__ == $0
   node = Node.new(true)
-  puts node.value
+  puts node.word
 end

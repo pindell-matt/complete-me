@@ -9,17 +9,15 @@ class NodeTest < Minitest::Test
     @node = Node.new
   end
 
-  def test_node_initializes_with_value_as_nil
-    submitted = @node.value
-    assert_nil submitted
+  def test_node_initializes_with_word_as_false
+    submitted = @node.word
+    assert_equal false, submitted
   end
 
-  def test_node_initializes_with_children_array
+  def test_node_initializes_with_children_as_nil
     submitted = @node.children
-    expected  = 26
 
-    assert_equal expected, submitted.count
-    assert_kind_of Array, submitted
+    assert_equal nil, submitted
   end
 
 end
