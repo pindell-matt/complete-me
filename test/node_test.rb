@@ -11,6 +11,7 @@ class NodeTest < Minitest::Test
 
   def test_node_initializes_with_word_as_false
     submitted = @node.word
+    
     assert_equal false, submitted
   end
 
