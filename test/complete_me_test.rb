@@ -27,7 +27,7 @@ class CompleteMeTest < Minitest::Test
   def test_insert_can_set_is_word_to_true
     # skip
     @trie.insert("i")
-    submitted = @trie.root.children.first.values.first.is_word
+    submitted = @trie.root.children.values.first.is_word
     expected  = true
 
     assert_equal expected, submitted
@@ -42,7 +42,7 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_insert_can_insert_one_word
+  def test_insert_can_insert_two_words
     # skip
     @trie.insert("hi")
     @trie.insert("ho")
