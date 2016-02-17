@@ -5,7 +5,7 @@ class Node
 
   def initialize(is_word = false)
     @is_word  = is_word
-    @children = []
+    @children = {}
   end
 
 end

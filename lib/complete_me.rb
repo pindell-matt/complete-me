@@ -9,11 +9,11 @@ class CompleteMe
   end
 
   def insert(word, count = 0, current = @root)
-    unless current.children.nil?
+    unless current.children.keys.include?(word[count])
       if word[count] == word[-1]
-        current.children = {word[count] => Node.new(true)}
+        current.children[word[count]] = Node.new(true)
       else
-        current.children = {word[count] => Node.new}
+        current.children[word[count]] = Node.new
       end
     end
     count += 1
