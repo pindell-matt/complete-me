@@ -9,10 +9,17 @@ class CompleteMeTest < Minitest::Test
     @trie = CompleteMe.new
   end
 
-  def test_trie_initializes_with_root_node
+  def test_trie_initializes_with_root_node_as_false
     submitted = @trie.root
 
     assert_equal false, submitted.is_word
+  end
+
+  def test_root_node_initially_has_no_children
+    submitted = @trie.root.children.count
+    expected = 0
+
+    assert_equal expected, submitted
   end
 
   def test_insert_can_insert_one_char_word
