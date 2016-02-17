@@ -79,4 +79,34 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
+  def test_trie_with_one_word_has_count_of_one
+    # skip
+    @trie.insert("i")
+    submitted = @trie.count
+    expected  = 1
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_with_two_word_has_count_of_two
+    # skip
+    @trie.insert("i")
+    @trie.insert("hi")
+    submitted = @trie.count
+    expected  = 2
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_with_two_word_has_count_of_three
+    # skip
+    @trie.insert("i")
+    @trie.insert("hi")
+    @trie.insert("hey")
+    submitted = @trie.count
+    expected  = 3
+
+    assert_equal expected, submitted
+  end
+
 end
