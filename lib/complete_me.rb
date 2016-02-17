@@ -30,9 +30,18 @@ class CompleteMe
 
   def traverse(current = @root)
     # binding.pry
-    until current == nil
+    until current.children == {}
       current = current.children.flatten.last
     end
+    current
+  end
+
+  def traverse_to_fragment(frag, current = @root)
+    # binding.pry
+    until current.children.keys.include?(frag[-1])
+      current = current.children.flatten.last
+    end
+    current
   end
 
 end

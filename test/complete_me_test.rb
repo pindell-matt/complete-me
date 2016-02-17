@@ -109,4 +109,17 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
+  def test_trie_traversal
+    # skip
+    @trie.insert("i")
+    @trie.insert("hi")
+    @trie.insert("hey")
+
+    @trie.traverse_to_fragment("he")
+    submitted = @trie.count
+    expected  = 3
+
+    assert_equal expected, submitted
+  end
+
 end
