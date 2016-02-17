@@ -42,12 +42,13 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_insert_can_insert_two_words
+  def test_insert_can_insert_two_words_with_same_starting_char
     # skip
     @trie.insert("hi")
     @trie.insert("ho")
-    submitted = @trie.root.children.count
-    expected  = 1
+    binding.pry
+    submitted = @trie.root.children.values.first.children.count
+    expected  = 2
 
     assert_equal expected, submitted
   end
