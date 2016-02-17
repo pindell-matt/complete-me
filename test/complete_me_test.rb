@@ -16,7 +16,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_one_char_word
-    # skip
+    skip
     @trie.insert("i")
     submitted = @trie.root.children.count
     expected  = 1
@@ -34,7 +34,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_one_word
-    # skip
+    skip
     @trie.insert("hi")
     submitted = @trie.root.children.count
     expected  = 1
@@ -43,10 +43,20 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_two_words_with_same_starting_char
-    # skip
+    skip
+    # binding.pry
     @trie.insert("hi")
     @trie.insert("ho")
-    binding.pry
+    submitted = @trie.root.children.values.first.children.count
+    expected  = 2
+
+    assert_equal expected, submitted
+  end
+
+  def test_insert_larger_words_with_same_starting_char
+    # skip
+    @trie.insert("house")
+    @trie.insert("hope")
     submitted = @trie.root.children.values.first.children.count
     expected  = 2
 

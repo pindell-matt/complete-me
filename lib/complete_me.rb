@@ -17,9 +17,8 @@ class CompleteMe
       end
     end
     count += 1
-    # binding.pry
     if word[count] != nil
-      insert(word, count, current.children.values.first)
+      insert(word, count, current.children.fetch(word[count - 1]))
     end
   end
 end
