@@ -124,8 +124,5 @@ if __FILE__ == $0
   puts completion.count
   # => 235886
   # => currently: 235887
-  # => currently: 228069
   pp completion.suggest("piz")
-  # => ["pizza", "pizzeria", "pizzicato"]
-  # => currently: ["pizza", "pize"]
 end
