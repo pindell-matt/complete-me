@@ -65,11 +65,16 @@ class CompleteMe
     matches = []
     build = ''
 
-    next_char = char_key_and_word_status_pairs(path_to)
-    next_char.each do |pair|
-      compile_suggestions(frag, matches, build, pair, path_to)
-    end
+    stage_one(frag, matches, build, path_to)
+
     matches.select { |match| is_word?(match) }
+  end
+
+  def stage_one(frag, matches, build, current)
+    next_char = char_key_and_word_status_pairs(current)
+    next_char.each do |pair|
+      compile_suggestions(frag, matches, build, pair, current)
+    end
   end
 
   def compile_suggestions(frag, matches, build, pair, current)
@@ -77,7 +82,7 @@ class CompleteMe
       build += pair[0]
       current = current.children.values_at(pair[0]).first
       next_pair = char_key_and_word_status_pairs(current).first
-      compile_suggestions(frag, matches, build, next_pair, current)
+      stage_one(frag, matches, build, current)
     end
     matches << frag + build + pair[0]
   end

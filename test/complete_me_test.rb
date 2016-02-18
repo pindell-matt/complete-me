@@ -163,7 +163,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_final_char
-    # skip
+    skip
     @trie.insert("skelter")
     submitted = @trie.suggest("skelte")
     expected  = ["skelter"]
@@ -172,7 +172,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_final_two_chars
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     submitted = @trie.suggest("helt")
@@ -182,7 +182,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_chars
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -193,7 +193,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_three_words
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -205,7 +205,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_two_suggestions
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -225,7 +225,7 @@ class CompleteMeTest < Minitest::Test
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.suggest('piz')
-    expected  = ["pizza", "pizzeria", "pizzicato"]
+    expected  = ["pize", "pizza", "pizzeria", "pizzicato", "pizzle"]
 
     assert_equal expected, submitted
   end
