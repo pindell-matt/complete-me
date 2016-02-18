@@ -107,7 +107,9 @@ class CompleteMe
 
   def select(frag, selected)
     search_trie_for_string(selected).weight += 1
-    # hash and increment?
+    # => hash and increment?
+    # path = search_trie_for_string(selected)
+    # path.frag_weight.merge({frag => path.weight += 1})
   end
 
 end

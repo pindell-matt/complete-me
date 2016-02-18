@@ -239,8 +239,8 @@ class CompleteMeTest < Minitest::Test
     @trie.insert("helsinki")
     @trie.insert("skeleton")
     @trie.select("hel", "helsinki")
-    @trie.select("hel", "helsinki")
     @trie.select("hel", "hello")
+    @trie.select("hel", "helsinki")
     submitted = @trie.suggest("hel")
     expected  = ["helsinki", "hello", "helter"]
 
