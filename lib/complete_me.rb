@@ -70,18 +70,4 @@ class CompleteMe
     current.children.values.first
   end
 
-  def find_possible_endings(frag)
-    reccommend = []
-    start = traverse_to_fragment(frag)
-    if start.is_word
-      reccommend << start
-    elsif start.children
-      binding.pry
-    else
-      binding.pry
-
-    end
-
-  end
-
 end
