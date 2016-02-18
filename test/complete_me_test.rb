@@ -31,6 +31,24 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
+  def test_insert_rejects_empty_string
+    assert_raises ArgumentError do
+      @trie.insert('')
+    end
+  end
+
+  def test_insert_rejects_space_only_string
+    assert_raises ArgumentError do
+      @trie.insert(' ')
+    end
+  end
+
+  def test_insert_rejects_non_string
+    assert_raises ArgumentError do
+      @trie.insert([/[d+]/])
+    end
+  end
+
   def test_insert_can_sets_complete_word_to_true
     # skip
     @trie.insert("i")
