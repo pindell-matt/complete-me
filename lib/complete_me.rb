@@ -61,15 +61,15 @@ class CompleteMe
 
   def suggest(frag, current = root)
     matches = []
-    if is_word?(frag)
-      matches << frag
-    end
+    matches << frag if is_word?(frag)
     build = ''
     path_to = search_trie_for_string(frag)
     stage_one(frag, matches, build, path_to)
+    matches_cleanup(matches)
+  end
 
+  def matches_cleanup(matches)
     qualified = matches.select { |match| is_word?(match.first) }.uniq
-
     if qualified.any? { |match| match.last > 0 }
       weighted = qualified.uniq.sort_by { |match| match.last }.reverse
       weighted.flatten.delete_if { |word| word.class != String }
@@ -107,9 +107,6 @@ class CompleteMe
 
   def select(frag, selected)
     search_trie_for_string(selected).weight += 1
-    # => hash and increment?
-    # path = search_trie_for_string(selected)
-    # path.frag_weight.merge({frag => path.weight += 1})
   end
 
 end
