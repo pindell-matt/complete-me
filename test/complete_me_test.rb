@@ -109,17 +109,15 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_trie_traversal
+  def test_trie_can_confirm_words_with_find
     # skip
     @trie.insert("hey")
     @trie.insert("hello")
-    @trie.find("hey")
-    binding.pry
-    @trie.traverse_to_fragment("he")
-    submitted = @trie.count
-    expected  = 3
+    included_word     = @trie.find("hello")
+    not_included_word = @trie.find("nope")
 
-    assert_equal expected, submitted
+    assert included_word
+    refute not_included_word
   end
 
 end
