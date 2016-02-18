@@ -61,6 +61,9 @@ class CompleteMe
 
   def suggest(frag, current = root)
     matches = []
+    if is_word?(frag)
+      matches << frag
+    end
     build = ''
     path_to = search_trie_for_string(frag)
     stage_one(frag, matches, build, path_to)
