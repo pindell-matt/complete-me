@@ -59,7 +59,7 @@ class CompleteMe
     current
   end
 
-  def suggest(frag, current = root)
+  def suggest(frag)
     matches = []
     matches << frag if is_word?(frag)
     build = ''
