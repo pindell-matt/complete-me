@@ -159,7 +159,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_final_two_chars
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     submitted = @trie.suggest("helt")

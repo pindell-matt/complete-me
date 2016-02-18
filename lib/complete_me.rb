@@ -62,33 +62,37 @@ class CompleteMe
   def suggest(frag, current = root)
     path_to = search_trie_for_string(frag)
 
-    next_char = char_key_and_word_status_pairs(path_to)
-
     matches = []
     build = ''
 
-    compile_suggestions(frag, matches, build, path_to)
-    matches.select { |match| is_word?(match) }
+    next_char = char_key_and_word_status_pairs(path_to)
+    if next_char.count > 1
+      # binding.pry
+      next_char.each do |pair|
+        compile_suggestions(frag, matches, build, pair, path_to)
+      end
+    end
 
+    # compile_suggestions(frag, matches, build, path_to)
+    matches.select { |match| is_word?(match) }
   end
 
-  def compile_suggestions(frag, matches, build, current)
-    next_char = char_key_and_word_status_pairs(current)
-    # binding.pry
-    unless next_char[1] == true
-      build += next_char[0]
-      current = current.children.values_at(next_char[0]).first
-      compile_suggestions(frag, matches, build, current)
+  def compile_suggestions(frag, matches, build, pair, current)
+    unless pair[1] == true
+      build += pair[0]
+      current = current.children.values_at(pair[0]).first
+      next_pair = char_key_and_word_status_pairs(current).first
+      compile_suggestions(frag, matches, build, next_pair, current)
     end
-    matches << frag + build + next_char[0]
+    matches << frag + build + pair[0]
   end
 
   def char_key_and_word_status_pairs(current = root)
     pair = []
     current.children.keys.each do |key|
-      pair << key
-      pair << current.children.values_at(key).first.is_word
-      # pair << [key, current.children.values_at(key).first.is_word]
+      # pair << key
+      # pair << current.children.values_at(key).first.is_word
+      pair << [key, current.children.values_at(key).first.is_word]
     end
     pair
   end
