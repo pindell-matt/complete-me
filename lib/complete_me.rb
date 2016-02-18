@@ -60,17 +60,25 @@ class CompleteMe
   end
 
   def suggest(frag, current = root)
-    char_keys = []
     path_to = search_trie_for_string(frag)
 
     next_char = char_key_and_word_status_pairs(path_to)
 
     matches = []
-    if next_char[1] == true
-      matches << frag + next_char[0]
-    end
+    build = ''
+    compile_suggestions(frag, matches, build, path_to)
+    # binding.pry
+    matches.select { |match| is_word?(match) }
+  end
 
-    matches
+  def compile_suggestions(frag, matches, build, current)
+    next_char = char_key_and_word_status_pairs(current)
+    unless next_char[1] == true
+      build += next_char[0]
+      current = current.children.values_at(next_char[0]).first
+      compile_suggestions(frag, matches, build, current)
+    end
+    matches << frag + build + next_char[0]
   end
 
   def char_key_and_word_status_pairs(current = root)
@@ -81,32 +89,5 @@ class CompleteMe
     end
     pair
   end
-
-  # def traverse_to_frag(frag, current = root)
-  #   possible_matches = []
-  #   frag.chars.each do |char|
-  #     if current.children.has_key?(char)
-  #       current = current.children.values_at(char).first
-  #     end
-  #   end
-  #   if current.children.keys.count > 1
-  #     tails = follow_to_end(current)
-  #     follow_to_end(current).each do |tail|
-  #       if find(frag + tail)
-  #         possible_matches << frag + tails[0]
-  #       end
-  #     end
-  #   else
-  #     match = frag + current.children.keys.first
-  #     possible_matches << match
-  #   end
-  #   possible_matches
-  # end
-  #
-  # def follow_to_end(current)
-  #   current.children.map do |child|
-  #     child.first + child.last.children.keys.first
-  #   end
-  # end
 
 end

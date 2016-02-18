@@ -149,8 +149,8 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_trie_suggest
-    # skip
+  def test_trie_suggest_final_char
+    skip
     @trie.insert("skelter")
     submitted = @trie.suggest("skelte")
     expected  = ["skelter"]
@@ -158,8 +158,18 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_trie_can_recieve_fragment
-    skip
+  def test_trie_suggest_final_two_chars
+    # skip
+    @trie.insert("hello")
+    @trie.insert("helter")
+    submitted = @trie.suggest("helt")
+    expected  = ["helter"]
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_suggest_chars
+    # skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
