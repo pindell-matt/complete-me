@@ -103,8 +103,9 @@ if __FILE__ == $0
   dictionary = File.read("/usr/share/dict/words")
   completion.populate(dictionary)
   puts completion.count
-  # => 235887
+  # => 235886
+  # => currently: 235887
   pp completion.suggest("piz")
-  # => currently: ["pizza", "pize"]
   # => ["pizza", "pizzeria", "pizzicato"]
+  # => currently: ["pizza", "pize"]
 end
