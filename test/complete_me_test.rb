@@ -25,7 +25,7 @@ class CompleteMeTest < Minitest::Test
   def test_insert_can_insert_one_char_word
     # skip
     @trie.insert("i")
-    submitted = @trie.root.children.count
+    submitted = @trie.root.children.keys.count
     expected  = 1
 
     assert_equal expected, submitted
@@ -63,7 +63,7 @@ class CompleteMeTest < Minitest::Test
     # skip
     @trie.insert("hi")
     @trie.insert("ho")
-    submitted = @trie.root.children.values.first.children.count
+    submitted = @trie.root.children.values_at("h").first.children.count
     expected  = 2
 
     assert_equal expected, submitted
@@ -73,13 +73,13 @@ class CompleteMeTest < Minitest::Test
     # skip
     @trie.insert("house")
     @trie.insert("hope")
-    submitted = @trie.root.children.values.first.children.values.first.children.count
+    submitted = @trie.root.children.values_at("h").first.children.values_at("o").first.children.count
     expected  = 2
 
     assert_equal expected, submitted
   end
 
-  def test_trie_with_one_word_has_count_of_one
+  def test_trie_count_returns_tries_total_word_count
     # skip
     @trie.insert("i")
     submitted = @trie.count
@@ -112,6 +112,20 @@ class CompleteMeTest < Minitest::Test
   def test_trie_can_confirm_words_with_find
     # skip
     @trie.insert("hey")
+    @trie.insert("hello")
+    included_word     = @trie.find("hello")
+    not_included_word = @trie.find("nope")
+
+    assert included_word
+    refute not_included_word
+  end
+
+  def test_trie_can_be_populated_with_dicionary
+    # skip
+    dictionary = File.read("/usr/share/dict/words")
+    @trie.populate(dictionary)
+    binding.pry
+
     @trie.insert("hello")
     included_word     = @trie.find("hello")
     not_included_word = @trie.find("nope")

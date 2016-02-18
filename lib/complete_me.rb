@@ -10,18 +10,23 @@ class CompleteMe
   end
 
   def insert(word, count = 0, current = @root)
-    unless current.children.keys.include?(word[count])
-      if word[count] == word[-1]
-        current.children[word[count]] = Node.new(true)
-        @word_count += 1
+    i = 0
+    while i < (word.length)
+      if current.children.has_key?(word[i])
+        current = current.children.values_at(word[i]).first
+        i += 1
       else
-        current.children[word[count]] = Node.new
+        break
       end
     end
-    count += 1
-    if word[count] != nil
-      insert(word, count, current.children.fetch(word[count - 1]))
+
+    while i < (word.length)
+      current.children[word[i]] = Node.new
+      current = current.children.values_at(word[i]).first
+      i += 1
     end
+    current.is_word = true
+    @word_count += 1
   end
 
   def count
@@ -34,31 +39,18 @@ class CompleteMe
     end
   end
 
-  def find(word, node = @root)
+  def find(word, current = @root)
     word.chars.each do |char|
-      if node.children.include?(char)
-        node = node.children[char]
+      if current.children.has_key?(char)
+        current = current.children.values_at(char).first
       else
         "nope"
       end
     end
-    node.is_word
-  end
-
-
-  def alt_count(current = @root)
-    # binding.pry
-    collected = []
-    until current.children == {}
-      # binding.pry
-      collected << current.children.values.any? { |node| node.is_word }
-      current = current.children.flatten.last
-    end
-    collected.find_all {|bool| bool == true}.count
+    current.is_word
   end
 
   def traverse(current = @root)
-    # binding.pry
     collected = []
     until current.children == {}
       collected << current.children.keys
