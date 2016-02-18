@@ -113,6 +113,7 @@ class CompleteMeTest < Minitest::Test
     # skip
     @trie.insert("hey")
     @trie.insert("hello")
+    @trie.find("hey")
     binding.pry
     @trie.traverse_to_fragment("he")
     submitted = @trie.count

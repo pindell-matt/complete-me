@@ -12,8 +12,8 @@ class CompleteMe
   def insert(word, count = 0, current = @root)
     unless current.children.keys.include?(word[count])
       if word[count] == word[-1]
-        @word_count += 1
         current.children[word[count]] = Node.new(true)
+        @word_count += 1
       else
         current.children[word[count]] = Node.new
       end
@@ -32,6 +32,29 @@ class CompleteMe
     words_string.split.each do |word|
       insert(word)
     end
+  end
+
+  def find(word, node = @root)
+    word.chars.each do |char|
+      if node.children.include?(char)
+        node = node.children[char]
+      else
+        "nope"
+      end
+    end
+    node.is_word
+  end
+
+
+  def alt_count(current = @root)
+    # binding.pry
+    collected = []
+    until current.children == {}
+      # binding.pry
+      collected << current.children.values.any? { |node| node.is_word }
+      current = current.children.flatten.last
+    end
+    collected.find_all {|bool| bool == true}.count
   end
 
   def traverse(current = @root)
