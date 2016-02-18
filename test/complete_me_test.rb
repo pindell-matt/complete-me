@@ -150,7 +150,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest
-    # skip
+    skip
     @trie.insert("skelter")
     submitted = @trie.suggest("skelte")
     expected  = ["skelter"]

@@ -19,6 +19,10 @@ class CompleteMe
     input_characters(chars)
   end
 
+  def create_node
+    Node.new
+  end
+
   def input_characters(chars, current = root)
     if chars.empty?
       current.is_word = true
@@ -29,7 +33,7 @@ class CompleteMe
         current = current.children.values_at(char).first
         input_characters(chars, current)
       else
-        current.children[char] = Node.new
+        current.children[char] = create_node
         current = current.children.values_at(char).first
         input_characters(chars, current)
       end
