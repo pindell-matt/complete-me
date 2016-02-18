@@ -20,22 +20,24 @@ class CompleteMe
   def insert(word)
     raise ArgumentError if word.class != String || invalid_submission(word)
     chars = word.downcase.chars
-    input_characters(chars)
+    input_characters(chars, word)
   end
 
-  def input_characters(chars, current = root)
+  def input_characters(chars, original_word, current = root)
     if chars.empty?
-      current.is_word = true
-      @count += 1
+      unless is_word?(original_word) == true
+        current.is_word = true
+        @count += 1
+      end
     else
       char = chars.shift
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
-        input_characters(chars, current)
+        input_characters(chars, original_word, current)
       else
         current.children[char] = create_node
         current = current.children.values_at(char).first
-        input_characters(chars, current)
+        input_characters(chars, original_word, current)
       end
     end
   end

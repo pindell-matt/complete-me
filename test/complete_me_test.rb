@@ -117,11 +117,24 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_trie_with_two_word_has_count_of_three
+  def test_trie_with_three_words_has_count_of_three
     # skip
     @trie.insert("i")
     @trie.insert("hi")
     @trie.insert("hey")
+    submitted = @trie.count
+    expected  = 3
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_does_not_count_duplicate_entries
+    # skip
+    @trie.insert("i")
+    @trie.insert("hi")
+    @trie.insert("hey")
+    @trie.insert("hey")
+    @trie.insert("hi")
     submitted = @trie.count
     expected  = 3
 
@@ -140,10 +153,9 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_be_populated_with_dicionary
-    # skip
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
-    binding.pry 
     submitted = @trie.count
     expected  = 235886
 
