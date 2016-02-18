@@ -140,9 +140,10 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_be_populated_with_dicionary
-    skip
+    # skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
+    binding.pry 
     submitted = @trie.count
     expected  = 235886
 

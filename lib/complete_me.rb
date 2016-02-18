@@ -91,3 +91,20 @@ class CompleteMe
   end
 
 end
+
+if __FILE__ == $0
+  # Breakdown Example of Basic Interaction Model
+  completion = CompleteMe.new
+  completion.insert("pizza")
+  puts completion.count
+  # => 1
+  pp completion.suggest("piz")
+  # => ["pizza"]
+  dictionary = File.read("/usr/share/dict/words")
+  completion.populate(dictionary)
+  puts completion.count
+  # => 235887
+  pp completion.suggest("piz")
+  # => currently: ["pizza", "pize"]
+  # => ["pizza", "pizzeria", "pizzicato"]
+end
