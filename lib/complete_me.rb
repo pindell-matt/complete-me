@@ -47,10 +47,10 @@ class CompleteMe
   end
 
   def is_word?(word)
-    search_trie_for_string(word).is_word
+    search_trie(word).is_word
   end
 
-  def search_trie_for_string(string, current = root)
+  def search_trie(string, current = root)
     string.chars.each do |char|
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
@@ -63,7 +63,7 @@ class CompleteMe
     matches = []
     matches << frag if is_word?(frag)
     build = ''
-    path_to = search_trie_for_string(frag)
+    path_to = search_trie(frag)
     stage_one(frag, matches, build, path_to)
     matches_cleanup(matches)
   end
@@ -106,7 +106,7 @@ class CompleteMe
   end
 
   def select(frag, selected)
-    search_trie_for_string(selected).weight += 1
+    search_trie(selected).weight += 1
   end
 
 end
