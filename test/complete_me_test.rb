@@ -24,11 +24,11 @@ class CompleteMeTest < Minitest::Test
 
   def test_insert_can_insert_one_char_word
     # skip
-    @trie.insert("i")
-    submitted = @trie.root.children.keys.count
-    expected  = 1
+    one_char_word = 'i'
+    @trie.insert(one_char_word)
+    submitted = @trie.find(one_char_word)
 
-    assert_equal expected, submitted
+    assert submitted
   end
 
   def test_insert_rejects_empty_string
@@ -49,9 +49,9 @@ class CompleteMeTest < Minitest::Test
     end
   end
 
-  def test_insert_can_sets_complete_word_to_true
+  def test_insert_can_sets_properly_flags_one_char_word
     # skip
-    @trie.insert("i")
+    @trie.insert('i')
     submitted = @trie.root.children.values.first.is_word
     expected  = true
 
@@ -59,17 +59,18 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_two_char_word
-    # # skip
-    @trie.insert("hi")
-    submitted = @trie.root.children.first.count
-    expected  = 2
+    # skip
+    word = 'hi'
+    @trie.insert(word)
+    submitted = @trie.find(word)
 
-    assert_equal expected, submitted
+    assert submitted
   end
 
-  def test_insert_sets_first_char_as_false_second_char_as_true
+  def test_insert_flags_second_char_as_word
     # # skip
-    @trie.insert("hi")
+    word = 'hi'
+    @trie.insert(word)
     first_char  = @trie.root.children.values.first.is_word
     second_char = @trie.root.children.values.first.children.values.first.is_word
 
