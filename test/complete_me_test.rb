@@ -124,14 +124,10 @@ class CompleteMeTest < Minitest::Test
     # skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
-    binding.pry
+    submitted = @trie.count
+    expected  = 235886
 
-    @trie.insert("hello")
-    included_word     = @trie.find("hello")
-    not_included_word = @trie.find("nope")
-
-    assert included_word
-    refute not_included_word
+    assert_equal expected, submitted
   end
 
 end

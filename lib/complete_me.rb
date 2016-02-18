@@ -71,7 +71,6 @@ class CompleteMe
     #current
     # current.children.values
     current.children.values.first.children
-    # current.children.values.first.children.keys
 
     # if final_char's node.is_word == true, recommend
     # if final_char has children, for each child
