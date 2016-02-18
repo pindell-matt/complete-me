@@ -9,17 +9,17 @@ class CompleteMe
     @count = 0
   end
 
-  def valid_submission(word)
+  def invalid_submission(word)
     word == '' || word == " "
   end
 
   def insert(word)
-    raise ArgumentError if word.class != String || valid_submission(word)
+    raise ArgumentError if word.class != String || invalid_submission(word)
     chars = word.downcase.chars
     input_characters(chars)
   end
 
-  def input_characters(chars, current = @root)
+  def input_characters(chars, current = root)
     if chars.empty?
       current.is_word = true
       @count += 1
@@ -42,7 +42,7 @@ class CompleteMe
     end
   end
 
-  def find(word, current = @root)
+  def find(word, current = root)
     word.chars.each do |char|
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
@@ -51,7 +51,7 @@ class CompleteMe
     current.is_word
   end
 
-  def traverse_to_frag(frag, current = @root)
+  def traverse_to_frag(frag, current = root)
     possible_matches = []
     frag.chars.each do |char|
       if current.children.has_key?(char)
