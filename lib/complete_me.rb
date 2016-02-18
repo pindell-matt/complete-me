@@ -43,6 +43,7 @@ class CompleteMe
   end
 
   def find(word)
+    #rename
     search_trie_for_string(word).is_word
   end
 
@@ -56,14 +57,10 @@ class CompleteMe
   end
 
   def suggest(frag, current = root)
-    frag.chars.each do |char|
-      if current.children.has_key?(char)
-        current = current.children.values_at(char).first
-      end
-    end
+    # binding.pry
+    path_to = search_trie_for_string(frag)
     # puts you out at node object holding children
     # with next chars
-    binding.pry
 
   end
 
