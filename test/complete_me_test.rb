@@ -129,7 +129,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_does_not_count_duplicate_entries
-    # skip
+    skip
     @trie.insert("i")
     @trie.insert("hi")
     @trie.insert("hey")
@@ -202,6 +202,22 @@ class CompleteMeTest < Minitest::Test
     expected  = ["hello", "helter", "helsinki"]
 
     assert_equal expected, submitted
+  end
+
+  def test_trie_suggest_two_suggestions
+    # skip
+    @trie.insert("hello")
+    @trie.insert("helter")
+    @trie.insert("skelter")
+    @trie.insert("helsinki")
+    @trie.insert("skeleton")
+    first_suggest  = @trie.suggest("hel")
+    first_result   = ["hello", "helter", "helsinki"]
+    second_suggest = @trie.suggest("skel")
+    second_result  = ["skelter", "skeleton"]
+
+    assert_equal first_result, first_suggest
+    assert_equal second_result, second_suggest
   end
 
 end

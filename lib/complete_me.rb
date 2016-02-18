@@ -18,26 +18,24 @@ class CompleteMe
   end
 
   def insert(word)
+    @count += 1
     raise ArgumentError if word.class != String || invalid_submission(word)
     chars = word.downcase.chars
-    input_characters(chars, word)
+    input_characters(chars)
   end
 
-  def input_characters(chars, original_word, current = root)
+  def input_characters(chars, current = root)
     if chars.empty?
-      unless is_word?(original_word) == true
-        current.is_word = true
-        @count += 1
-      end
+      current.is_word = true
     else
       char = chars.shift
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
-        input_characters(chars, original_word, current)
+        input_characters(chars, current)
       else
         current.children[char] = create_node
         current = current.children.values_at(char).first
-        input_characters(chars, original_word, current)
+        input_characters(chars, current)
       end
     end
   end
@@ -107,6 +105,7 @@ if __FILE__ == $0
   puts completion.count
   # => 235886
   # => currently: 235887
+  # => currently: 228069
   pp completion.suggest("piz")
   # => ["pizza", "pizzeria", "pizzicato"]
   # => currently: ["pizza", "pize"]
