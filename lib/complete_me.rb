@@ -5,8 +5,12 @@ class CompleteMe
   attr_reader :root, :count
 
   def initialize
-    @root = Node.new
+    @root = create_node
     @count = 0
+  end
+
+  def create_node
+    Node.new
   end
 
   def invalid_submission(word)
@@ -17,10 +21,6 @@ class CompleteMe
     raise ArgumentError if word.class != String || invalid_submission(word)
     chars = word.downcase.chars
     input_characters(chars)
-  end
-
-  def create_node
-    Node.new
   end
 
   def input_characters(chars, current = root)
