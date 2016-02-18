@@ -179,4 +179,16 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
+  def test_trie_suggest_three_words
+    # skip
+    @trie.insert("hello")
+    @trie.insert("helter")
+    @trie.insert("skelter")
+    @trie.insert("helsinki")
+    submitted = @trie.suggest("hel")
+    expected  = ["hello", "helter", "helsinki"]
+
+    assert_equal expected, submitted
+  end
+
 end

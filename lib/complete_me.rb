@@ -90,8 +90,6 @@ class CompleteMe
   def char_key_and_word_status_pairs(current = root)
     pair = []
     current.children.keys.each do |key|
-      # pair << key
-      # pair << current.children.values_at(key).first.is_word
       pair << [key, current.children.values_at(key).first.is_word]
     end
     pair
