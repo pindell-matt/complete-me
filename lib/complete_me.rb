@@ -66,13 +66,15 @@ class CompleteMe
 
     matches = []
     build = ''
+
     compile_suggestions(frag, matches, build, path_to)
-    # binding.pry
     matches.select { |match| is_word?(match) }
+
   end
 
   def compile_suggestions(frag, matches, build, current)
     next_char = char_key_and_word_status_pairs(current)
+    # binding.pry
     unless next_char[1] == true
       build += next_char[0]
       current = current.children.values_at(next_char[0]).first
@@ -86,6 +88,7 @@ class CompleteMe
     current.children.keys.each do |key|
       pair << key
       pair << current.children.values_at(key).first.is_word
+      # pair << [key, current.children.values_at(key).first.is_word]
     end
     pair
   end
