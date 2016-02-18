@@ -220,4 +220,14 @@ class CompleteMeTest < Minitest::Test
     assert_equal second_result, second_suggest
   end
 
+  def test_trie_dictionary_suggestions
+    # skip
+    dictionary = File.read("/usr/share/dict/words")
+    @trie.populate(dictionary)
+    submitted = @trie.suggest('piz')
+    expected  = ["pizza", "pizzeria", "pizzicato"]
+
+    assert_equal expected, submitted
+  end
+
 end
