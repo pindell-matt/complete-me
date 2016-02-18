@@ -26,7 +26,7 @@ class CompleteMeTest < Minitest::Test
     # skip
     one_char_word = 'i'
     @trie.insert(one_char_word)
-    submitted = @trie.find(one_char_word)
+    submitted = @trie.is_word?(one_char_word)
 
     assert submitted
   end
@@ -62,7 +62,7 @@ class CompleteMeTest < Minitest::Test
     # skip
     word = 'hi'
     @trie.insert(word)
-    submitted = @trie.find(word)
+    submitted = @trie.is_word?(word)
 
     assert submitted
   end
@@ -128,12 +128,12 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_trie_can_confirm_words_with_find
+  def test_trie_can_confirm_words_with_is_word?
     # skip
     @trie.insert("hey")
     @trie.insert("hello")
-    included_word     = @trie.find("hello")
-    not_included_word = @trie.find("nope")
+    included_word     = @trie.is_word?("hello")
+    not_included_word = @trie.is_word?("nope")
 
     assert included_word
     refute not_included_word
@@ -150,7 +150,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest
-    skip
+    # skip
     @trie.insert("skelter")
     submitted = @trie.suggest("skelte")
     expected  = ["skelter"]
@@ -163,7 +163,7 @@ class CompleteMeTest < Minitest::Test
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
-    submitted = @trie.traverse_to_frag("hel")
+    submitted = @trie.suggest("hel")
     expected  = ["hello", "helter"]
 
     assert_equal expected, submitted
