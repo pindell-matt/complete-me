@@ -9,24 +9,31 @@ class CompleteMe
     @count = 0
   end
 
-  def insert(word, count = 0, current = @root)
-    i = 0
-    while i < (word.length)
-      if current.children.has_key?(word[i])
-        current = current.children.values_at(word[i]).first
-        i += 1
+  def valid_submission(word)
+    word == '' || word == " "
+  end
+
+  def insert(word)
+    raise ArgumentError if word.class != String || valid_submission(word)
+    chars = word.downcase.chars
+    input_characters(chars)
+  end
+
+  def input_characters(chars, current = @root)
+    if chars.empty?
+      current.is_word = true
+      @count += 1
+    else
+      char = chars.shift
+      if current.children.has_key?(char)
+        current = current.children.values_at(char).first
+        input_characters(chars, current)
       else
-        break
+        current.children[char] = Node.new
+        current = current.children.values_at(char).first
+        input_characters(chars, current)
       end
     end
-
-    while i < (word.length)
-      current.children[word[i]] = Node.new
-      current = current.children.values_at(word[i]).first
-      i += 1
-    end
-    current.is_word = true
-    @count += 1
   end
 
   def populate(words_string)
