@@ -213,6 +213,7 @@ class CompleteMeTest < Minitest::Test
     @trie.insert("skeleton")
     first_suggest  = @trie.suggest("hel")
     first_result   = ["hello", "helter", "helsinki"]
+
     second_suggest = @trie.suggest("skel")
     second_result  = ["skelter", "skeleton"]
 
@@ -226,6 +227,22 @@ class CompleteMeTest < Minitest::Test
     @trie.populate(dictionary)
     submitted = @trie.suggest('piz')
     expected  = ["pize", "pizza", "pizzeria", "pizzicato", "pizzle"]
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_select_orders_suggestions_by_weight
+    # skip
+    @trie.insert("hello")
+    @trie.insert("helter")
+    @trie.insert("skelter")
+    @trie.insert("helsinki")
+    @trie.insert("skeleton")
+    @trie.select("hel", "helsinki")
+    @trie.select("hel", "helsinki")
+    @trie.select("hel", "hello")
+    submitted = @trie.suggest("hel")
+    expected  = ["helsinki", "hello", "helter"]
 
     assert_equal expected, submitted
   end

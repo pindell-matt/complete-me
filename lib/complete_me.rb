@@ -67,7 +67,15 @@ class CompleteMe
     build = ''
     path_to = search_trie_for_string(frag)
     stage_one(frag, matches, build, path_to)
-    matches.select { |match| is_word?(match) }.uniq
+
+    qualified = matches.select { |match| is_word?(match.first) }.uniq
+
+    if qualified.any? { |match| match.last > 0 }
+      weighted = qualified.uniq.sort_by { |match| match.last }.reverse
+      weighted.flatten.delete_if { |word| word.class != String }
+    else
+      qualified.flatten.delete_if { |word| word.class != String }
+    end
   end
 
   def stage_one(frag, matches, build, current)
@@ -79,22 +87,27 @@ class CompleteMe
 
   def compile_suggestions(frag, matches, build, pair, current)
     if pair[1] == true
-      matches << frag + pair[0]
+      matches << [frag + pair[0], pair.last]
     else
       build += pair[0]
       current = current.children.values_at(pair[0]).first
       next_pair = char_key_and_word_status_pairs(current).first
       stage_one(frag, matches, build, current)
     end
-    matches << frag + build + pair[0]
+    matches << [frag + build + pair[0], pair.last]
   end
 
   def char_key_and_word_status_pairs(current = root)
     pair = []
     current.children.keys.each do |key|
-      pair << [key, current.children.values_at(key).first.is_word]
+      path = current.children.values_at(key).first
+      pair << [key, path.is_word, path.weight]
     end
     pair
+  end
+
+  def select(frag, selected)
+    search_trie_for_string(selected).weight += 1
   end
 
 end
