@@ -67,13 +67,10 @@ class CompleteMe
 
     next_char = char_key_and_word_status_pairs(path_to)
     if next_char.count > 1
-      # binding.pry
       next_char.each do |pair|
         compile_suggestions(frag, matches, build, pair, path_to)
       end
     end
-
-    # compile_suggestions(frag, matches, build, path_to)
     matches.select { |match| is_word?(match) }
   end
 
