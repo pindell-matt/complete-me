@@ -2,11 +2,11 @@ require_relative 'node'
 require 'pry'
 
 class CompleteMe
-  attr_reader :root, :word_count
+  attr_reader :root, :count
 
   def initialize
     @root = Node.new
-    @word_count = 0
+    @count = 0
   end
 
   def insert(word, count = 0, current = @root)
@@ -26,11 +26,7 @@ class CompleteMe
       i += 1
     end
     current.is_word = true
-    @word_count += 1
-  end
-
-  def count
-    @word_count
+    @count += 1
   end
 
   def populate(words_string)
