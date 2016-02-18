@@ -111,10 +111,9 @@ class CompleteMeTest < Minitest::Test
 
   def test_trie_traversal
     # skip
-    @trie.insert("i")
-    @trie.insert("hi")
     @trie.insert("hey")
-
+    @trie.insert("hello")
+    binding.pry
     @trie.traverse_to_fragment("he")
     submitted = @trie.count
     expected  = 3
