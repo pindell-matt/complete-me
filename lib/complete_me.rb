@@ -91,7 +91,6 @@ class CompleteMe
     else
       build += pair[0]
       current = current.children.values_at(pair[0]).first
-      next_pair = char_key_and_word_status_pairs(current).first
       stage_one(frag, matches, build, current)
     end
     matches << [frag + build + pair[0], pair.last]
@@ -108,6 +107,7 @@ class CompleteMe
 
   def select(frag, selected)
     search_trie_for_string(selected).weight += 1
+    # hash and increment?
   end
 
 end
