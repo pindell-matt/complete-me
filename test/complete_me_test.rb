@@ -149,10 +149,10 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
-  def test_trie_can_recieve_fragment
-    # skip
+  def test_trie_suggest
+    skip
     @trie.insert("skelter")
-    submitted = @trie.traverse_to_frag("skelte")
+    submitted = @trie.suggest("skelte")
     expected  = ["skelter"]
 
     assert_equal expected, submitted

@@ -42,40 +42,56 @@ class CompleteMe
     end
   end
 
-  def find(word, current = root)
-    word.chars.each do |char|
+  def find(word)
+    search_trie_for_string(word).is_word
+  end
+
+  def search_trie_for_string(string, current = root)
+    string.chars.each do |char|
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
       end
     end
-    current.is_word
+    current
   end
 
-  def traverse_to_frag(frag, current = root)
-    possible_matches = []
+  def suggest(frag, current = root)
     frag.chars.each do |char|
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
       end
     end
-    if current.children.keys.count > 1
-      tails = follow_to_end(current)
-      follow_to_end(current).each do |tail|
-        if find(frag + tail)
-          possible_matches << frag + tails[0]
-        end
-      end
-    else
-      match = frag + current.children.keys.first
-      possible_matches << match
-    end
-    possible_matches
+    # puts you out at node object holding children
+    # with next chars
+    binding.pry
+
   end
 
-  def follow_to_end(current)
-    current.children.map do |child|
-      child.first + child.last.children.keys.first
-    end
-  end
+  # def traverse_to_frag(frag, current = root)
+  #   possible_matches = []
+  #   frag.chars.each do |char|
+  #     if current.children.has_key?(char)
+  #       current = current.children.values_at(char).first
+  #     end
+  #   end
+  #   if current.children.keys.count > 1
+  #     tails = follow_to_end(current)
+  #     follow_to_end(current).each do |tail|
+  #       if find(frag + tail)
+  #         possible_matches << frag + tails[0]
+  #       end
+  #     end
+  #   else
+  #     match = frag + current.children.keys.first
+  #     possible_matches << match
+  #   end
+  #   possible_matches
+  # end
+  #
+  # def follow_to_end(current)
+  #   current.children.map do |child|
+  #     child.first + child.last.children.keys.first
+  #   end
+  # end
 
 end
