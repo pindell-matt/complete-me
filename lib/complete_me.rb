@@ -55,19 +55,24 @@ class CompleteMe
         current = current.children.values_at(char).first
       end
     end
-    if current.children.keys.count == 1
+    if current.children.keys.count > 1
+      tails = follow_to_end(current)
+      follow_to_end(current).each do |tail|
+        if find(frag + tail)
+          possible_matches << frag + tails[0]
+        end
+      end
+    else
       match = frag + current.children.keys.first
       possible_matches << match
     end
     possible_matches
   end
 
-  def traverse_to_fragment(frag, current = @root)
-    until current.children.keys.include?(frag[-1])
-      current = current.children.flatten.last
+  def follow_to_end(current)
+    current.children.map do |child|
+      child.first + child.last.children.keys.first
     end
-    # current.children.values.first.children
-    current.children.values.first
   end
 
 end

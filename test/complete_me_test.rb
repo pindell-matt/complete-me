@@ -131,13 +131,20 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_recieve_fragment
-    # skip
-    @trie.insert("hello")
-    @trie.insert("help")
-    @trie.insert("helter")
     @trie.insert("skelter")
     submitted = @trie.traverse_to_frag("skelte")
     expected  = ["skelter"]
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_can_recieve_fragment
+    # skip
+    @trie.insert("hello")
+    @trie.insert("helter")
+    @trie.insert("skelter")
+    submitted = @trie.traverse_to_frag("hel")
+    expected  = ["hello", "helter"]
 
     assert_equal expected, submitted
   end
