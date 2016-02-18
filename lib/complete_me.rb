@@ -43,39 +43,44 @@ class CompleteMe
     word.chars.each do |char|
       if current.children.has_key?(char)
         current = current.children.values_at(char).first
-      else
-        "nope"
       end
     end
     current.is_word
   end
 
-  def traverse(current = @root)
-    collected = []
-    until current.children == {}
-      collected << current.children.keys
-      current = current.children.flatten.last
+  def traverse_to_frag(frag, current = @root)
+    possible_matches = []
+    frag.chars.each do |char|
+      if current.children.has_key?(char)
+        current = current.children.values_at(char).first
+      end
     end
-    collected
+    if current.children.keys.count == 1
+      match = frag + current.children.keys.first
+      possible_matches << match
+    end
+    possible_matches
   end
-
-  # fragment.shift - look for that element
-  # chop
-  # recursively go down - whenever you get to a true
-  # add to possible word
 
   def traverse_to_fragment(frag, current = @root)
     until current.children.keys.include?(frag[-1])
       current = current.children.flatten.last
     end
-    #current
-    # current.children.values
-    current.children.values.first.children
+    # current.children.values.first.children
+    current.children.values.first
+  end
 
-    # if final_char's node.is_word == true, recommend
-    # if final_char has children, for each child
-    # => if child.is_word == true, recommend
-    # else, store char and look at children.
+  def find_possible_endings(frag)
+    reccommend = []
+    start = traverse_to_fragment(frag)
+    if start.is_word
+      reccommend << start
+    elsif start.children
+      binding.pry
+    else
+      binding.pry
+
+    end
 
   end
 

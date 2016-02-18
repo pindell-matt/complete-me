@@ -121,11 +121,23 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_be_populated_with_dicionary
-    # skip
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.count
     expected  = 235886
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_can_recieve_fragment
+    # skip
+    @trie.insert("hello")
+    @trie.insert("help")
+    @trie.insert("helter")
+    @trie.insert("skelter")
+    submitted = @trie.traverse_to_frag("skelte")
+    expected  = ["skelter"]
 
     assert_equal expected, submitted
   end
