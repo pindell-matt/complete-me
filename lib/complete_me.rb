@@ -60,14 +60,11 @@ class CompleteMe
   end
 
   def suggest(frag, current = root)
-    path_to = search_trie_for_string(frag)
-
     matches = []
     build = ''
-
+    path_to = search_trie_for_string(frag)
     stage_one(frag, matches, build, path_to)
-
-    matches.select { |match| is_word?(match) }
+    matches.select { |match| is_word?(match) }.uniq
   end
 
   def stage_one(frag, matches, build, current)
@@ -78,7 +75,9 @@ class CompleteMe
   end
 
   def compile_suggestions(frag, matches, build, pair, current)
-    unless pair[1] == true
+    if pair[1] == true
+      matches << frag + pair[0]
+    else
       build += pair[0]
       current = current.children.values_at(pair[0]).first
       next_pair = char_key_and_word_status_pairs(current).first
