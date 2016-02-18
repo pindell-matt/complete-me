@@ -66,10 +66,8 @@ class CompleteMe
     build = ''
 
     next_char = char_key_and_word_status_pairs(path_to)
-    if next_char.count > 1
-      next_char.each do |pair|
-        compile_suggestions(frag, matches, build, pair, path_to)
-      end
+    next_char.each do |pair|
+      compile_suggestions(frag, matches, build, pair, path_to)
     end
     matches.select { |match| is_word?(match) }
   end
