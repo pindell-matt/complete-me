@@ -172,7 +172,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_be_populated_with_dicionary
-    # skip
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.count
@@ -241,7 +241,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_dictionary_suggestions
-  # skip
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.suggest('piz')
