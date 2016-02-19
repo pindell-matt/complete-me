@@ -31,6 +31,15 @@ class Node
     is_word
   end
 
+  def search(chars)
+    char = chars.shift
+    if chars.empty?
+      children[char]
+    else
+      children[char].search(chars)
+    end
+  end
+
 end
 
 if __FILE__ == $0

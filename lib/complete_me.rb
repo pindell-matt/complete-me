@@ -37,13 +37,9 @@ class CompleteMe
     search_trie(word).is_word
   end
 
-  def search_trie(string, current = root)
-    string.chars.each do |char|
-      if current.children.has_key?(char)
-        current = current.children.values_at(char).first
-      end
-    end
-    current
+  def search_trie(string)
+    chars = string.chars
+    root.search(chars)
   end
 
   def suggest(frag)
