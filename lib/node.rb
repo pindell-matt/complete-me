@@ -18,7 +18,7 @@ class Node
     end
   end
 
-  def count #try inject
+  def count
     sum = 0
     children.each do |letter, node|
       sum += node.count
