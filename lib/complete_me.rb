@@ -2,11 +2,10 @@ require_relative 'node'
 require 'pry'
 
 class CompleteMe
-  attr_reader :root, :count
+  attr_reader :root
 
   def initialize
     @root = create_node
-    @count = 0
   end
 
   def create_node
@@ -14,30 +13,18 @@ class CompleteMe
   end
 
   def invalid_submission(word)
-    word == '' || word == " "
+    word.class != String || word.empty?
   end
 
   def insert(word)
-    @count += 1
-    raise ArgumentError if word.class != String || invalid_submission(word)
-    chars = word.downcase.chars
-    input_characters(chars)
+    word.strip!
+    raise ArgumentError if invalid_submission(word)
+    chars = word.chars
+    root.insert(chars)
   end
 
-  def input_characters(chars, current = root)
-    if chars.empty?
-      current.is_word = true
-    else
-      char = chars.shift
-      if current.children.has_key?(char)
-        current = current.children.values_at(char).first
-        input_characters(chars, current)
-      else
-        current.children[char] = create_node
-        current = current.children.values_at(char).first
-        input_characters(chars, current)
-      end
-    end
+  def count
+    root.count
   end
 
   def populate(words_string)

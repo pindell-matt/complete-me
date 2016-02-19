@@ -23,7 +23,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_one_char_word
-    # skip
+    skip
     one_char_word = 'i'
     @trie.insert(one_char_word)
     submitted = @trie.is_word?(one_char_word)
@@ -43,14 +43,8 @@ class CompleteMeTest < Minitest::Test
     end
   end
 
-  def test_insert_rejects_non_string
-    assert_raises ArgumentError do
-      @trie.insert([/[d+]/])
-    end
-  end
-
   def test_insert_can_sets_properly_flags_one_char_word
-    # skip
+    skip
     @trie.insert('i')
     submitted = @trie.root.children.values.first.is_word
     expected  = true
@@ -59,7 +53,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_two_char_word
-    # skip
+    skip
     word = 'hi'
     @trie.insert(word)
     submitted = @trie.is_word?(word)
@@ -68,7 +62,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_flags_second_char_as_word
-    # skip
+    skip
     word = 'hi'
     @trie.insert(word)
     first_char  = @trie.root.children.values.first.is_word
@@ -79,7 +73,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_can_insert_two_words_with_same_starting_char
-    # skip
+    skip
     @trie.insert("hi")
     @trie.insert("ho")
     submitted = @trie.root.children.values_at("h").first.children.count
@@ -89,7 +83,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_insert_larger_words_with_same_starting_char
-    # skip
+    skip
     @trie.insert("house")
     @trie.insert("hope")
     submitted = @trie.root.children.values_at("h").first.children.values_at("o").first.children.count
@@ -99,7 +93,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_count_returns_tries_total_word_count
-    # skip
+    skip
     @trie.insert("i")
     submitted = @trie.count
     expected  = 1
@@ -108,7 +102,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_with_two_word_has_count_of_two
-    # skip
+    skip
     @trie.insert("i")
     @trie.insert("hi")
     submitted = @trie.count
@@ -128,6 +122,19 @@ class CompleteMeTest < Minitest::Test
     assert_equal expected, submitted
   end
 
+  def test_trie_with_multiple_words
+    # skip
+    @trie.insert("hi")
+    @trie.insert("hey")
+    @trie.insert("hello")
+    @trie.insert("helter")
+    @trie.insert("helsinki")
+    submitted = @trie.count
+    expected  = 5
+
+    assert_equal expected, submitted
+  end
+
   def test_trie_does_not_count_duplicate_entries
     skip
     @trie.insert("i")
@@ -142,7 +149,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_confirm_words_with_is_word?
-    # skip
+    skip
     @trie.insert("hey")
     @trie.insert("hello")
     included_word     = @trie.is_word?("hello")
@@ -152,8 +159,20 @@ class CompleteMeTest < Minitest::Test
     refute not_included_word
   end
 
+  def test_trie_can_be_populated_with_words
+    # skip
+    dictionary = "A a aa aal aalii aam Aani aardvark aardwolf Aaron"
+    dictionary.split.each do |word|
+      @trie.insert(word)
+    end
+    submitted = @trie.count
+    expected  = 10
+
+    assert_equal expected, submitted
+  end
+
   def test_trie_can_be_populated_with_dicionary
-    skip
+    # skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.count
@@ -172,7 +191,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_final_two_chars
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     submitted = @trie.suggest("helt")
@@ -182,7 +201,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_chars
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -193,7 +212,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_three_words
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -205,7 +224,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_suggest_two_suggestions
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -232,7 +251,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_select_orders_suggestions_by_weight
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("skelter")
@@ -248,7 +267,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_weight_is_dependant_on_fragment
-    # skip
+    skip
     @trie.insert("hello")
     @trie.insert("helter")
     @trie.insert("helsinki")
