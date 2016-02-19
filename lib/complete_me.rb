@@ -61,6 +61,12 @@ class CompleteMe
     end
   end
 
+  def breakdown(frag, current)
+    current.children.each_value.map do |node|
+      [node, node.is_word?, node.children.count]
+    end
+  end
+
   def stage_one(frag, matches, build, current)
     next_char = node_info(frag, current)
     next_char.each do |set|
@@ -93,19 +99,17 @@ class CompleteMe
 end
 
 if __FILE__ == $0
-  # # Breakdown Example of Basic Interaction Model
+  # Breakdown Example of Basic Interaction Model
   completion = CompleteMe.new
   completion.insert("pizza")
-  # puts completion.count
-  # # => 1
-  # pp completion.suggest("piz")
-  # # => ["pizza"]
-  # dictionary = File.read("/usr/share/dict/words")
-  # completion.populate(dictionary)
-  # puts completion.count
-  # # => 235886
-  # # => currently: 235887
-  # pp completion.suggest("piz")
-
-  completion.new_suggest('piz')
+  puts completion.count
+  # => 1
+  pp completion.suggest("piz")
+  # => ["pizza"]
+  dictionary = File.read("/usr/share/dict/words")
+  completion.populate(dictionary)
+  puts completion.count
+  # => 235886
+  # => currently: 235887
+  pp completion.suggest("piz")
 end
