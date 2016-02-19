@@ -63,20 +63,20 @@ class CompleteMe
 
   def stage_one(frag, matches, build, current)
     next_char = node_info(frag, current)
-    next_char.each do |pair|
-      compile_suggestions(frag, matches, build, pair, current)
+    next_char.each do |set|
+      compile_suggestions(frag, matches, build, set, current)
     end
   end
 
-  def compile_suggestions(frag, matches, build, pair, current)
-    if pair[1] == true
-      matches << [frag + pair[0], pair.last]
+  def compile_suggestions(frag, matches, build, set, current)
+    if set[1] == true
+      matches << [frag + set[0], set.last]
     else
-      build += pair[0]
-      current = current.children.values_at(pair[0]).first
+      build += set[0]
+      current = current.children.values_at(set[0]).first
       stage_one(frag, matches, build, current)
     end
-    matches << [frag + build + pair[0], pair.last]
+    matches << [frag + build + set[0], set.last]
   end
 
   def node_info(frag, current = root)
