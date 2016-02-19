@@ -42,6 +42,10 @@ class CompleteMe
     root.search(chars)
   end
 
+  def new_suggest(frag)
+
+  end
+
   def suggest(frag)
     matches = []
     matches << frag if is_word?(frag)
@@ -80,12 +84,10 @@ class CompleteMe
   end
 
   def char_key_and_word_status_pairs(frag, current = root)
-    pair = []
-    current.children.keys.each do |key|
+    current.children.keys.map do |key|
       path = current.children.values_at(key).first
-      pair << [key, path.is_word, path.weights[frag]]
+      [key, path.is_word, path.weights[frag]]
     end
-    pair
   end
 
   def select(frag, selected)
@@ -95,17 +97,19 @@ class CompleteMe
 end
 
 if __FILE__ == $0
-  # Breakdown Example of Basic Interaction Model
+  # # Breakdown Example of Basic Interaction Model
   completion = CompleteMe.new
   completion.insert("pizza")
-  puts completion.count
-  # => 1
-  pp completion.suggest("piz")
-  # => ["pizza"]
-  dictionary = File.read("/usr/share/dict/words")
-  completion.populate(dictionary)
-  puts completion.count
-  # => 235886
-  # => currently: 235887
-  pp completion.suggest("piz")
+  # puts completion.count
+  # # => 1
+  # pp completion.suggest("piz")
+  # # => ["pizza"]
+  # dictionary = File.read("/usr/share/dict/words")
+  # completion.populate(dictionary)
+  # puts completion.count
+  # # => 235886
+  # # => currently: 235887
+  # pp completion.suggest("piz")
+
+  completion.new_suggest('piz')
 end
