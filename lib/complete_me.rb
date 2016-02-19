@@ -42,10 +42,6 @@ class CompleteMe
     root.search(chars)
   end
 
-  def new_suggest(frag)
-
-  end
-
   def suggest(frag)
     matches = []
     matches << frag if is_word?(frag)
