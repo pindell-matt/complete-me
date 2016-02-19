@@ -1,13 +1,12 @@
 require 'pry'
 
 class Node
-  attr_accessor :is_word, :children, :weight # :frag_weight
+  attr_accessor :is_word, :children, :weights
 
   def initialize(is_word = false)
     @is_word  = is_word
     @children = {}
-    @weight   = 0
-    # @frag_weight = {}
+    @weights  = Hash.new(0)
   end
 
 end

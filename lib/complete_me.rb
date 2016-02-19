@@ -71,7 +71,7 @@ class CompleteMe
   def matches_cleanup(matches)
     qualified = matches.select { |match| is_word?(match.first) }.uniq
     if qualified.any? { |match| match.last > 0 }
-      weighted = qualified.uniq.sort_by { |match| match.last }.reverse
+      weighted = qualified.sort_by { |match| -match.last }
       weighted.flatten.delete_if { |word| word.class != String }
     else
       qualified.flatten.delete_if { |word| word.class != String }
@@ -79,7 +79,7 @@ class CompleteMe
   end
 
   def stage_one(frag, matches, build, current)
-    next_char = char_key_and_word_status_pairs(current)
+    next_char = char_key_and_word_status_pairs(frag, current)
     next_char.each do |pair|
       compile_suggestions(frag, matches, build, pair, current)
     end
@@ -96,17 +96,17 @@ class CompleteMe
     matches << [frag + build + pair[0], pair.last]
   end
 
-  def char_key_and_word_status_pairs(current = root)
+  def char_key_and_word_status_pairs(frag, current = root)
     pair = []
     current.children.keys.each do |key|
       path = current.children.values_at(key).first
-      pair << [key, path.is_word, path.weight]
+      pair << [key, path.is_word, path.weights[frag]]
     end
     pair
   end
 
   def select(frag, selected)
-    search_trie(selected).weight += 1
+    search_trie(selected).weights[frag] += 1
   end
 
 end

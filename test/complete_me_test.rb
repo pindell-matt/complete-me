@@ -153,7 +153,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_can_be_populated_with_dicionary
-    # skip
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.count
@@ -222,7 +222,7 @@ class CompleteMeTest < Minitest::Test
   end
 
   def test_trie_dictionary_suggestions
-    # skip
+    skip
     dictionary = File.read("/usr/share/dict/words")
     @trie.populate(dictionary)
     submitted = @trie.suggest('piz')
@@ -243,6 +243,30 @@ class CompleteMeTest < Minitest::Test
     @trie.select("hel", "helsinki")
     submitted = @trie.suggest("hel")
     expected  = ["helsinki", "hello", "helter"]
+
+    assert_equal expected, submitted
+  end
+
+  def test_trie_weight_is_dependant_on_fragment
+    # skip
+    @trie.insert("hello")
+    @trie.insert("helter")
+    @trie.insert("helsinki")
+    @trie.select("hel", "helsinki")
+    @trie.select("hel", "helsinki")
+    @trie.select("hel", "helsinki")
+
+    @trie.select("he", "hello")
+    @trie.select("he", "hello")
+    @trie.select("he", "helsinki")
+
+    submitted = @trie.suggest("hel")
+    expected  = ["helsinki", "hello", "helter"]
+
+    assert_equal expected, submitted
+
+    submitted = @trie.suggest("he")
+    expected  = ["hello", "helsinki", "helter"]
 
     assert_equal expected, submitted
   end
