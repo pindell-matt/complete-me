@@ -66,7 +66,7 @@ class CompleteMe
   end
 
   def stage_one(frag, matches, build, current)
-    next_char = char_key_and_word_status_pairs(frag, current)
+    next_char = node_info(frag, current)
     next_char.each do |pair|
       compile_suggestions(frag, matches, build, pair, current)
     end
@@ -83,7 +83,7 @@ class CompleteMe
     matches << [frag + build + pair[0], pair.last]
   end
 
-  def char_key_and_word_status_pairs(frag, current = root)
+  def node_info(frag, current = root)
     current.children.keys.map do |key|
       path = current.children.values_at(key).first
       [key, path.is_word, path.weights[frag]]
