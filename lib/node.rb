@@ -20,20 +20,16 @@ class Node
 
   def count #try inject
     sum = 0
-
     children.each do |letter, node|
       sum += node.count
     end
-
     sum += 1 if is_word?
-
     sum
   end
 
   def is_word?
     is_word
   end
-
 
 end
 
